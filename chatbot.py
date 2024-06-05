@@ -3,6 +3,25 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from abc import *
 
+#                                 챗봇(추상클래스)
+#                             +--------------------+
+#                             |   SimpleChatBot    |
+#                             +--------------------+
+#                                      ^    ^
+#                                      |    |
+#                                      |    |
+#                                      |    |
+#                 +--------------------+    +------------------+
+#                 |                                            |
+#                 |                                            |
+#  +-----------------------------------+   +-------------------------------+
+#  | SimpleChatBotWithCosineSimilarity |   | SimpleChatBotWithCalcDistance |
+#  +-----------------------------------+   +-------------------------------+
+#      코사인 유사도를 구현한 챗봇          레벤슈타인 거리 계산을 구현한 챗봇
+#
+#
+
+
 #
 # 챗봇
 #
@@ -83,7 +102,7 @@ class SimpleChatBotWithCalcDistance(SimpleChatBot):
         return matrix[a_len][b_len]
     
 ###########################################################################
-# 로직 시작
+# 프로그램 시작
 ###########################################################################
 
 # CSV 파일 경로를 지정하세요.
