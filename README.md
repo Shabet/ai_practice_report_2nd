@@ -1,3 +1,4 @@
+## 클래스 다이어그램
 ```mermaid
 		classDiagram
 	    SimpleChatBot <|-- SimpleChatBotWithCosineSimilarity 
@@ -17,6 +18,21 @@
 	    }
 ```
 
+## 상태 다이어그램
+```mermaid
+		stateDiagram-v2
+	    [*] --> 챗봇_인스턴스_생성
+	    챗봇_인스턴스_생성 --> 질문입력
+	    질문입력 --> 종료
+	    질문입력 --> !=종료
+	    !=종료 --> find_best_answer()
+	    find_best_answer() --> 질문입력
+	    종료 --> [*]
+
+```
+
+
+## 과제 설명
 ```
 AI 개발 실무 2차 레포트과제
 레벤슈타인 거리를 이용한 챗봇 구하기
