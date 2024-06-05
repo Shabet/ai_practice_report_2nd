@@ -46,6 +46,7 @@ class SimpleChatBot(metaclass=ABCMeta):
 #
 class SimpleChatBotWithCosineSimilarity(SimpleChatBot):
     def find_best_answer(self, input_sentence):
+        '''코사인 유사도 값이 가장 큰 값에 해당하는 답을 리턴'''
         input_vector = self.vectorizer.transform([input_sentence])
         similarities = cosine_similarity(input_vector, self.question_vectors) # 코사인 유사도 값들을 저장
         
@@ -58,9 +59,22 @@ class SimpleChatBotWithCosineSimilarity(SimpleChatBot):
 #    
 class SimpleChatBotWithCalcDistance(SimpleChatBot):
     def find_best_answer(self, input_sentence):
-        # 입력된 질문과 미리준비된 질문 리스트를 calc_distance(base, n) 함수를 호출하여 레벤슈타인 거리를 계산하고, 이를 기준으로 리스트를 정렬
-        r = sorted(self.questions, key = lambda n: self.calc_distance(input_sentence, n))
-        return r[0] # 가장 유사한 질문을 리턴
+        '''가장 유사한 질문에 해당하는 인덱스에 해당하는 답을 리턴'''
+        return self.answers[self.get_shortest_distance_index(input_sentence)]
+
+    def get_shortest_distance_index(self, input_sentence):
+        '''입력된 질문과 미리준비된 질문 리스트를 calc_distance() 함수를 호출하여 레벤슈타인 거리를 계산하고, 이를 기준으로 가장 유사한 질문에 해당하는 인덱스를 리턴'''
+        shortest_distance = (-1,-1, '') # index, distance, question
+        for idx, question in enumerate(self.questions):
+            distance = self.calc_distance(input_sentence, question)
+
+            if shortest_distance[0] == -1: #최초 수행시
+                shortest_distance = (idx, distance, question)
+            elif distance < shortest_distance[1]: #거리가 짧은 것을 저장
+                shortest_distance = (idx, distance, question)
+            
+        # print(shortest_distance) # 테스트시 주석 해제
+        return shortest_distance[0]
 
     def calc_distance(self, a, b):
         ''' 레벤슈타인 거리 계산하기 '''
