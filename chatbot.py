@@ -64,11 +64,11 @@ class SimpleChatBotWithCalcDistance(SimpleChatBot):
 
     def get_shortest_distance_index(self, input_sentence):
         '''입력된 질문과 미리준비된 질문 리스트를 calc_distance() 함수를 호출하여 레벤슈타인 거리를 계산하고, 이를 기준으로 가장 유사한 질문에 해당하는 인덱스를 리턴'''
-        shortest_distance = (-1,-1, '') # index, distance, question
+        shortest_distance = () # index, distance, question
         for idx, question in enumerate(self.questions):
             distance = self.calc_distance(input_sentence, question)
 
-            if shortest_distance[0] == -1: #최초 수행시
+            if not shortest_distance: #최초 수행시
                 shortest_distance = (idx, distance, question)
             elif distance < shortest_distance[1]: #거리가 짧은 것을 저장
                 shortest_distance = (idx, distance, question)
