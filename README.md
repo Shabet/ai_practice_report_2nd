@@ -39,6 +39,7 @@ py -m pip install scikit-learn
 	    }
 	    class SimpleChatBotWithCalcDistance {
 	      find_best_answer()
+		  get_shortest_distance_index()
 	      calc_distance()
 	    }
 ```
