@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from abc import *
+import random
 
 #                                 챗봇(추상클래스)
 #                             +--------------------+
@@ -64,17 +65,22 @@ class SimpleChatBotWithCalcDistance(SimpleChatBot):
 
     def get_shortest_distance_index(self, input_sentence):
         '''입력된 질문과 미리준비된 질문 리스트를 calc_distance() 함수를 호출하여 레벤슈타인 거리를 계산하고, 이를 기준으로 가장 유사한 질문에 해당하는 인덱스를 리턴'''
-        shortest_distance = () # index, distance, question
+        shortest_distances = [] # (index, distance, question) 튜플 형식으로 저장
         for idx, question in enumerate(self.questions):
             distance = self.calc_distance(input_sentence, question)
 
-            if not shortest_distance: #최초 수행시
-                shortest_distance = (idx, distance, question)
-            elif distance < shortest_distance[1]: #거리가 짧은 것을 저장
-                shortest_distance = (idx, distance, question)
-            
-        # print(shortest_distance) # 테스트시 주석 해제
-        return shortest_distance[0]
+            if not shortest_distances:                 #최초 수행시
+                shortest_distances = [(idx, distance, question)]
+            elif distance < shortest_distances[0][1]:  #거리가 짧은 것을 저장
+                shortest_distances = [(idx, distance, question)]
+            elif distance == shortest_distances[0][1]: #거리가 같을때는 append
+                shortest_distances.append((idx, distance, question))
+
+        #print(shortest_distances) # 테스트시 주석 해제
+
+        # 같은 거리로 계산된 것중에 random하게 인덱스 리턴
+        random_num_idx = random.randint(0,len(shortest_distances)-1)
+        return shortest_distances[random_num_idx][0]
 
     def calc_distance(self, a, b):
         ''' 레벤슈타인 거리 계산하기 '''

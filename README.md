@@ -1,3 +1,28 @@
+## 관련된 모듈 설치
+- scikit-learn 설치
+
+```
+pip install scikit-learn
+
+or
+in windows,
+
+py -m pip install scikit-learn
+```
+
+## 상태 다이어그램
+```mermaid
+		stateDiagram-v2
+	    [*] --> 챗봇_인스턴스_생성
+	    챗봇_인스턴스_생성 --> 질문입력
+	    질문입력 --> 종료
+	    질문입력 --> !=종료
+	    !=종료 --> find_best_answer()
+	    find_best_answer() --> 질문입력
+	    종료 --> [*]
+
+```
+
 ## 클래스 다이어그램
 ```mermaid
 		classDiagram
@@ -17,20 +42,6 @@
 	      calc_distance()
 	    }
 ```
-
-## 상태 다이어그램
-```mermaid
-		stateDiagram-v2
-	    [*] --> 챗봇_인스턴스_생성
-	    챗봇_인스턴스_생성 --> 질문입력
-	    질문입력 --> 종료
-	    질문입력 --> !=종료
-	    !=종료 --> find_best_answer()
-	    find_best_answer() --> 질문입력
-	    종료 --> [*]
-
-```
-
 
 ## 과제 설명
 ```
