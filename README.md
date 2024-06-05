@@ -1,3 +1,22 @@
+```mermaid
+		classDiagram
+	    SimpleChatBot <|-- SimpleChatBotWithCosineSimilarity 
+	    SimpleChatBot <|-- SimpleChatBotWithCalcDistance 
+	    SimpleChatBot : questions
+	    SimpleChatBot : answers
+	    SimpleChatBot: vectorizer
+	    SimpleChatBot: question_vectors
+	    SimpleChatBot: load_data()
+	    SimpleChatBot: find_best_answer()
+	    class SimpleChatBotWithCosineSimilarity {
+	      find_best_answer()
+	    }
+	    class SimpleChatBotWithCalcDistance {
+	      find_best_answer()
+	      calc_distance()
+	    }
+```
+
 ```
 AI 개발 실무 2차 레포트과제
 레벤슈타인 거리를 이용한 챗봇 구하기
